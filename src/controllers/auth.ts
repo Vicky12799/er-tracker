@@ -94,3 +94,9 @@ export const logout = async (req: Request, res: Response) => {
     console.log('log out status', result);
     res.end()
 }
+
+export const me = async (req: Request, res: Response) => {
+    console.log('me');
+
+    res.json(req.user)
+}
