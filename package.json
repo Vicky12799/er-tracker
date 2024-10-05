@@ -5,9 +5,9 @@
   "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "prisma generate && tsc",
-    "start": "node dist/server.js",
-    "dev": "npx nodemon"
+    "start": "npx nodemon",
+    "postinstall": "prisma generate && prisma migrate deploy",
+    "vercel-build": "echo hello"
   },
   "author": "",
   "license": "ISC",

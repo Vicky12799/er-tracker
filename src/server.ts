@@ -19,8 +19,10 @@ export const prismaClient = new PrismaClient(
 app.use(errorMiddleware)
 
 app.get('/', (req, res) => {
-    res.send('<h1> Hi </h1>')
+    res.json({ message: "hello" })
 })
 app.listen(PORT, () => {
     console.log(`Application running successfully on ${PORT}`)
 })
+
+export default app
