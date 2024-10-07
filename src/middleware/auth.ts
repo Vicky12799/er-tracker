@@ -14,13 +14,13 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
     const token = req.headers.authorization
     // 2. if token not present throw unauthorized error
     if (!token) {
-        next(new UnauthorizedException('Unauthorized', ErrorCode.UNAUTHORIZED))
+        return next(new UnauthorizedException('Need auth token', ErrorCode.UNAUTHORIZED))
     }
 
     try {
         // 3. if token verify toker and extract payload
         if (!validTokens.has(token!)) {
-            next(new UnauthorizedException('Token Expired', ErrorCode.EXPIRED_TOKEN))
+            return next(new UnauthorizedException('Token Expired', ErrorCode.EXPIRED_TOKEN))
         }
         const payload = jwt.verify(token!, JWT_SECRET) as any
         console.log('payload received')
@@ -28,7 +28,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
         const user = await prismaClient.user.findFirst({ where: { id: payload.userId } }) as User
         console.log('user received', user)
         if (!user) {
-            next(new UnauthorizedException('Unauthorized', ErrorCode.UNAUTHORIZED))
+            return next(new UnauthorizedException('Unauthorized', ErrorCode.UNAUTHORIZED))
         }
         const { password, ...userWithoutPassword } = user;
         req.user = userWithoutPassword
