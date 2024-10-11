@@ -6,8 +6,9 @@ import { errorMiddleware } from "./middleware/error";
 import cors, { CorsOptions } from 'cors';
 
 const app: Express = express()
+const allowedOrigin = ['http://localhost:4200']
 const corsOptions: CorsOptions = {
-    origin: 'http://localhost:4200',
+    origin: allowedOrigin,
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Add other methods if needed
     credentials: true // If you're handling cookies or authentication
 };
@@ -27,7 +28,7 @@ export const prismaClient = new PrismaClient(
 app.use(errorMiddleware)
 
 app.get('/', (req, res) => {
-    res.json({ message: "hello" })
+    res.json({ message: "hello cors changes" })
 })
 app.listen(PORT, () => {
     console.log(`Application running successfully on ${PORT}`)
