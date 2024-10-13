@@ -67,7 +67,7 @@ export const login = async (req: Request, res: Response) => {
     }
 
     if (!compareSync(rawPassword, user!.password)) {
-        // throw new IncorrectPasswordException('Incorrect password!', ErrorCode.INCORRECT_PASSWORD);
+        throw new BadRequestsException('Incorrect password!', ErrorCode.INCORRECT_PASSWORD);
     }
 
     const token = jwt.sign(

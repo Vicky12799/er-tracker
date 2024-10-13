@@ -6,9 +6,13 @@ import { errorMiddleware } from "./middleware/error";
 import cors, { CorsOptions } from 'cors';
 
 const app: Express = express()
-const allowedOrigin = ['http://localhost:4200']
+const allowedOrigins = [
+    'http://localhost:4200',
+    'http://127.0.0.1:4200',
+    'http://0.0.0.0:4200'
+];
 const corsOptions: CorsOptions = {
-    origin: allowedOrigin,
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Add other methods if needed
     credentials: true // If you're handling cookies or authentication
 };
